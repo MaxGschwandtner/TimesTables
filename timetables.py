@@ -1,7 +1,8 @@
 from turtle import Screen, Turtle
+import time
 pointList = []
+colors = ['blue', 'cyan', 'green', 'yellow', 'orange', 'magenta', 'red', 'brown']
 numberOfPoints = 200
-multiplier = 10
 screen = Screen()
 t = Turtle()
 
@@ -31,7 +32,7 @@ def getPoints():
         t.right(180 + angle)
         t.pendown()
 
-def createGraphics():
+def createGraphics(multiplier):
     for i in range(numberOfPoints):
         t.penup()
         t.goto(pointList[i])
@@ -43,14 +44,29 @@ def createGraphics():
                 t.home()
                 t.pendown()
 
-def run():
+def run(multiplier):
     t.hideturtle()
     screen.tracer(False)
     setup()
     getPoints()
-    createGraphics()
+    createGraphics(multiplier)
     screen.tracer(True)
 
-run()
+def writeNumbers(num):
+    t.penup()
+    t.goto(-250, -250)
+    t.write(str(num), font=("Arial", 25, "normal"))
+    t.home()
+    t.pendown()
 
+def animation():
+    for i in range(2, 100):
+        t.clear()
+        t.pencolor(colors[i%8])
+        run(i)
+        writeNumbers(i)
+        time.sleep(0.7)
+
+animation()
 screen.mainloop()
+
